@@ -1,2 +1,2 @@
-# ECMAScript
-学习ECMAScript
+# js
+学习js
