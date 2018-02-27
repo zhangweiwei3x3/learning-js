@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var glob = require('glob');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 // 目录
 var path = require('path');
 var packPath = path.join(__dirname, './dist');
@@ -11,7 +12,7 @@ var webpackConfig = {
     entry: {},
     output: {
         path: packPath,
-        filename: '[name]',
+        filename: '[name].js',
     },
     module: {
         rules: [{
@@ -37,23 +38,31 @@ function getEntries(globPath) {
 
     files.forEach((filepath) => {
         var split = filepath.split('/'),
-            name = '';
-
-
-        for (let i = 1; i < split.length; i++) {
-            name += split[i] + '/'
-        }
-        name = name.slice(0, -1);
+            name = split[split.length - 2];
     
-        entries[name] = path.resolve(__dirname, `./src/${name}`);
+        entries[name] = [
+            path.resolve(__dirname, `./src/${name}/index.js`),
+            path.resolve(__dirname, `./src/${name}/ex.js`)
+        ];
     });
 
     return entries;
 }
         
-var entries = getEntries('src/**/*.js');
+var entries = getEntries('src/**/index.js');
 Object.keys(entries).forEach((name) => {
+    var option = {
+        // 生成出来的html文件名
+        filename: name + '.html',
+        template: `./src/${name}/index.html`,
+        inject: true
+    };
+    
+    // 每个页面生成一个html
+    var plugin = new HtmlWebpackPlugin(option);
+
+    webpackConfig.plugins.push(plugin);
     webpackConfig.entry[name] = entries[name];
-})
+});
 
 module.exports = webpackConfig;
