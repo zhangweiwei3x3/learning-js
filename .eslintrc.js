@@ -13,16 +13,7 @@ module.exports = {
         "browser": true,
         "node": true
     },
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
-    // 插件
-    "plugins": [
-        "react"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
+    "extends": ["eslint:recommended"],
     // 全局变量
     // new webpack.ProvidePlugin
     "globals": {
@@ -166,15 +157,6 @@ module.exports = {
         "require-yield": 2,
         "rest-spread-spacing": 1,
         "template-curly-spacing": 1,
-        "yield-star-spacing": 1,
-
-        // react
-        "react/jsx-uses-vars": 2,
-        "react/jsx-indent": 1,
-        "react/jsx-no-undef": 2,
-        "react/prop-types": 0,
-        "react/jsx-key": 0,
-        "react/no-find-dom-node": 0,
-        "react/jsx-space-before-closing": [1, "always"]
+        "yield-star-spacing": 1
     }
 };
